@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package matchmaking;
+
+option go_package = "internal/matchmakingpb";
+
+service MatchmakingService {
+  rpc RequestMatch (MatchRequest) returns (MatchResponse);
+}
+
+message MatchRequest {
+  int64 user_id = 1;
+  string subject = 2;
+  string time_slot = 3;
+  string level = 4;
+
+  // Advanced Fields (based on error messages)
+  string study_mode = 5;
+  int32 group_size = 6;
+  string communication = 7;
+  string study_style = 8;
+  string preferred_language = 9;
+  string timezone = 10;
+  string desired_time = 11;
+  int32 time_flex_minutes = 12;
+
+  map<string, int32> priority_weights = 13;
+}
+
+
+message MatchResponse {
+  bool matched = 1;
+  int64 session_id = 2;
+  string message = 3;
+  int64 matched_user_id = 4;
+}
